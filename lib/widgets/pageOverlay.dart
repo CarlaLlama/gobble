@@ -16,20 +16,20 @@ class _PageOverlayState extends State<PageOverlay> {
     return new Visibility(
         visible: _visible,
         child: Container(
-        margin: const EdgeInsets.all(60.0),
-        decoration: new BoxDecoration(color: Colors.purple),
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              new RaisedButton(
-                  child: new Text("NEW GAME"),
-                  onPressed: _toggle
-                  ),
-              new RaisedButton(
-                child: new Text("CHALLENGE"))
-              ]
-            )));
+          margin: const EdgeInsets.all(60.0),
+          decoration: new BoxDecoration(color: Colors.purple.withOpacity(0.8)),
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  new RaisedButton(
+                      child: new Text("NEW GAME"),
+                      onPressed: _toggle
+                      ),
+                  new RaisedButton(
+                    child: new Text("CHALLENGE"))
+                  ]
+              )));
   }
   void _toggle() {
     setState(() {

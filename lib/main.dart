@@ -5,9 +5,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:gobble/pages/login.dart';
 
 
-void main() => runApp(MyApp());
+void main() => runApp(GobbleApp());
 
-class MyApp extends StatelessWidget {
+class GobbleApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {

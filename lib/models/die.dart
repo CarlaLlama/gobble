@@ -1,6 +1,10 @@
+import 'dart:collection';
+
 class Die {
   const Die({this.id, this.sides});
 
   final int id;
-  final Object sides;
+  final Map<int, String> sides;
+
+
 }

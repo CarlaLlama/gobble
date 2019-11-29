@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:gobble/models/board.dart';
 import 'package:gobble/widgets/grid.dart';
 import 'package:gobble/widgets/pageOverlay.dart';
+import 'package:gobble/widgets/timer.dart';
 
 void main() async {
   Util flameUtil = Util();
@@ -21,13 +22,18 @@ class HomePage extends StatelessWidget {
   final FirebaseUser user;
 
   HomePage({this.user});
+  bool _startTimer = false;
 
   @override
   Widget build(BuildContext context) => new Scaffold(
       appBar: new AppBar(
-        title: new Text("Gobble"),
-        elevation: 4.0,
-      ),
+          elevation: 4.0,
+          title: new Row(
+            children:  <Widget>[
+               (_startTimer) ? new TimerWidget() : new Text("")
+            ],
+          )
+        ),
       body: new Stack(
         alignment: Alignment.center,
         fit: StackFit.expand,
@@ -35,7 +41,7 @@ class HomePage extends StatelessWidget {
           new Container(
               padding: const EdgeInsets.all(16.0),
               decoration: new BoxDecoration(color: Colors.amber),
-              child: new Column(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -46,9 +52,9 @@ class HomePage extends StatelessWidget {
                     ],
                   ),
                   new Text(user.displayName ?? user.email),
-                  new Grid()
                 ],
               )),
+          new GridWidget(),
           new Positioned.fill(
               child: PageOverlay()
           )
@@ -58,5 +64,4 @@ class HomePage extends StatelessWidget {
   void _logout() {
     signOutProviders();
   }
-}
 
