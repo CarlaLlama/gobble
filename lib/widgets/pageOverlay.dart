@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PageOverlay extends StatefulWidget {
-  //PageOverlay({Key: key}) : super(key: key);
+  String _name;
+
+  PageOverlay(this._name);
 
   @override
   _PageOverlayState createState() => _PageOverlayState();
@@ -16,19 +18,30 @@ class _PageOverlayState extends State<PageOverlay> {
     return new Visibility(
         visible: _visible,
         child: Container(
-          margin: const EdgeInsets.all(60.0),
-          decoration: new BoxDecoration(color: Colors.purple.withOpacity(0.8)),
+          margin: const EdgeInsets.all(30.0),
+          decoration: new BoxDecoration(
+              color: Colors.black.withOpacity(0.8),
+              borderRadius: new BorderRadius.all(new Radius.circular(10.0)),
+
+          ),
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
+                  new Text('Welcome ${widget._name}',
+                    style: TextStyle(
+                        color: Colors.green,
+                        fontSize: 20
+                    )),
                   new RaisedButton(
                       child: new Text("NEW GAME"),
+                      color: Colors.green,
                       onPressed: _toggle
                       ),
                   new RaisedButton(
-                    child: new Text("CHALLENGE"))
-                  ]
+                    child: new Text("CHALLENGE"),
+                    color: Colors.green)
+                ]
               )));
   }
   void _toggle() {

@@ -14,7 +14,7 @@ class GobbleApp extends StatelessWidget {
     return MaterialApp(
       title: 'Gobble Gobble',
       theme: ThemeData(
-        primarySwatch: Colors.amber,
+        primarySwatch: Colors.green,
         accentColor: Colors.white,
         backgroundColor: Colors.black
       ),

@@ -55,7 +55,7 @@ class Countdown extends AnimatedWidget {
 
   String timerString(){
     int duration = animation.value;
-    return '${duration % 60}:${((duration % 60) % 1).toString().padLeft(2, '0')}';
+    return '${duration % 180}:${((duration % 3) % 1).toString().padLeft(2, '0')}';
   }
 
   @override

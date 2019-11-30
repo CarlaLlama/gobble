@@ -1,4 +1,5 @@
  import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flare_flutter/flare_actor.dart';
  import 'package:flutter/material.dart';
  import 'package:firebase_ui/flutter_firebase_ui.dart';
 import 'package:flame/util.dart';
@@ -22,46 +23,39 @@ class HomePage extends StatelessWidget {
   final FirebaseUser user;
 
   HomePage({this.user});
+
   bool _startTimer = false;
 
   @override
-  Widget build(BuildContext context) => new Scaffold(
-      appBar: new AppBar(
-          elevation: 4.0,
-          title: new Row(
-            children:  <Widget>[
-               (_startTimer) ? new TimerWidget() : new Text("")
-            ],
-          )
-        ),
-      body: new Stack(
-        alignment: Alignment.center,
-        fit: StackFit.expand,
-        children: [
-          new Container(
-              padding: const EdgeInsets.all(16.0),
-              decoration: new BoxDecoration(color: Colors.amber),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
+  Widget build(BuildContext context) =>
+      new Scaffold(
+          appBar: new AppBar(
+              elevation: 4.0,
+              backgroundColor: Colors.black,
+              title: new Row(
                 children: <Widget>[
-                  new Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      new Text("Welcome,"),
-                    ],
-                  ),
-                  new Text(user.displayName ?? user.email),
+                  (_startTimer) ? new TimerWidget() : new Text("")
                 ],
-              )),
-          new GridWidget(),
-          new Positioned.fill(
-              child: PageOverlay()
-          )
-      ])
+              )
+          ),
+          body: new Stack(
+              alignment: Alignment.center,
+              fit: StackFit.expand,
+              children: [
+                new Container(
+                  child: new FlareActor("assets/animations/background.flr",
+                    alignment: Alignment.center,
+                    animation: "Background Loop",
+                    fit: BoxFit.fitWidth)),
+                new GridWidget(),
+                new Positioned.fill(
+                    child: PageOverlay(user.displayName ?? user.email)
+                )
+              ])
       );
+
 
   void _logout() {
     signOutProviders();
   }
-
+}
