@@ -19,11 +19,16 @@ void main() async {
 }
 
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   final FirebaseUser user;
 
   HomePage({this.user});
 
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   bool _startTimer = false;
 
   @override
@@ -34,7 +39,19 @@ class HomePage extends StatelessWidget {
               backgroundColor: Colors.black,
               title: new Row(
                 children: <Widget>[
-                  (_startTimer) ? new TimerWidget() : new Text("")
+                  (_startTimer) ? new TimerWidget() : new Text("00:00"),
+                  new Align(
+                    alignment: Alignment.centerLeft,
+                    child: new IconButton(
+                      icon: Icon(Icons.exit_to_app,
+                        color: Colors.green,
+                        size: 24,
+                      ),
+                      onPressed: () {
+                        _logout();
+                      }
+                    ),
+                    ),
                 ],
               )
           ),
@@ -49,11 +66,10 @@ class HomePage extends StatelessWidget {
                     fit: BoxFit.fitWidth)),
                 new GridWidget(),
                 new Positioned.fill(
-                    child: PageOverlay(user.displayName ?? user.email)
+                    child: PageOverlay(widget.user.displayName ?? widget.user.email)
                 )
               ])
       );
-
 
   void _logout() {
     signOutProviders();

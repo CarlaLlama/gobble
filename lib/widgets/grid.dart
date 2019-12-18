@@ -1,10 +1,10 @@
-import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gobble/models/checker.dart';
 import 'package:gobble/models/dice.dart';
 import 'package:gobble/widgets/die.dart';
+
 
 class GridWidget extends StatefulWidget {
 
@@ -17,6 +17,7 @@ class _GridWidgetState extends State<GridWidget> {
   Dice _dice;
   List<String> _letters;
   List<String> _words = new List<String>();
+  Trie<String> _dictionary = new Trie<String>();
 
   callback(letter) {
     setState(() {
@@ -29,13 +30,16 @@ class _GridWidgetState extends State<GridWidget> {
   void initState() {
     super.initState();
     _dice = new Dice();
+
     List<List<String>> grid = _dice.getGrid();
-    _letters = _dice.getGridList();
-    print(grid);
-    Trie words = new Trie();
-    var solver = new Checker(words, grid);
-    List<String> results = solver.findAll().toList();
-    print("RESULTS: $results");
+    _letters = _dice.getShuffledGridList();
+    print(this._dictionary);
+
+    Function(String) callback;
+
+    var checker = new Checker(grid, callback);
+    List<String> results = checker.findAll().toList();
+    print("Results: $results");
   }
 
 
@@ -75,7 +79,7 @@ class _GridWidgetState extends State<GridWidget> {
                   onPressed: _submitWord,
                   color: Colors.black,
                   child: Text("ADD WORD", style: TextStyle(
-                    color: Colors.white
+                    color: Colors.white,
                   ))
                 ),
                 new ListView(
@@ -92,11 +96,18 @@ class _GridWidgetState extends State<GridWidget> {
   }
 
   void _submitWord() {
-    _words.add(_letters.join());
-    _letters.clear();
+    setState(() {
+      _words.add(_letters.join());
+      _letters.clear();
+    });
   }
 
-  void _regenWords() {
-
+  Trie<String> buildTrie(List<String> lines) {
+    Trie<String> words = new Trie<String>();
+    for (int i = 0; i < lines.length; i++) {
+      var word = lines[i];
+      words[word] = word;
+    }
+    return words;
   }
 }

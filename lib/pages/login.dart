@@ -37,25 +37,28 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     if (_currentUser == null) {
       return new SignInScreen(
-        title: "Gobble",
-        header: new Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16.0),
-          child: new Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: new Text("Gobble"),
+          header: new Container(
+               alignment: Alignment.center,
+               height: 400,
+               width: 400,
+               child: new Icon(Icons.person_pin,
+                color: Colors.green,
+                size: 100,
+               ),
           ),
-        ),
-        showBar: true,
-        // horizontalPadding: 8,
-        bottomPadding: 5,
-        avoidBottomInset: true,
-        color: Color(0xFF363636),
-        providers: [
-          ProvidersTypes.google,
-          ProvidersTypes.email
-        ],
-        horizontalPadding: 12,
+          showBar: false,
+          title: ("Gobble"),
+          horizontalPadding: 10,
+          bottomPadding: 10,
+          avoidBottomInset: false,
+          color: Colors.black,
+          providers: [
+            ProvidersTypes.google,
+            ProvidersTypes.email,
+            ProvidersTypes.phone
+          ],
       );
+
     } else {
       return new HomePage(user: _currentUser);
     }

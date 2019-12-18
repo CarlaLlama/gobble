@@ -8,7 +8,7 @@ class Dice {
     return this._grid;
   }
 
-  List<String> getGridList(){
+  List<String> getShuffledGridList(){
     List<String> gridList = new List<String>();
     for (List<String> i in this._grid){
       gridList.addAll(i);

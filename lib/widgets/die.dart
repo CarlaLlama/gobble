@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'button.dart';
-
 class DieWidget extends StatefulWidget {
   String _letter;
   Function(String) callback;
@@ -54,6 +52,4 @@ class _DieWidgetState extends State<DieWidget> {
       ),
     );
   }
-
-
 }
