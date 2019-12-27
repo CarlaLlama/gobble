@@ -1,4 +1,4 @@
-library trie;
+//library trie;
 
 import 'dart:collection';
 /// Trie Library
@@ -25,11 +25,13 @@ class Trie<T> {
   }
 
   Trie<T> nodeFor(String character) {
+    print("CODE UNIT: "+ character.codeUnitAt(0).toString());
     return map[character.codeUnitAt(0)];
   }
 
   // Defined index access operator []
   void operator []=(String key, T value) {
+    print("HERE?");
     var node = this;
     for (int i = 0; i < key.length; i++) {
       int char = key.codeUnitAt(i);
@@ -63,6 +65,7 @@ class Trie<T> {
     var node = this;
     for (int i = 0; i < prefix.length; i+=1) {
       int char = prefix.codeUnitAt(i);
+      print("CHAR: "+char.toString());
 
       node = node.map[char];
       if (node == null) {
@@ -72,6 +75,10 @@ class Trie<T> {
 
     _collectValues(prefix, node, result);
     return result;
+  }
+
+  T getString(Trie<T> node) {
+    return node.value;
   }
 
 

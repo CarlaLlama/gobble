@@ -149,6 +149,6 @@ class Grid {
         visited[i][j] = false;
       }
     }
-    return _findInGridWorker(tiles, 0, i, j, visited, [], paths);
+    //return _findInGridWorker(tiles, 0, i, j, visited, [], paths);
   }
 }
