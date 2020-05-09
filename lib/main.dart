@@ -4,6 +4,20 @@ import 'package:firebase_ui/l10n/localization.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:gobble/pages/login.dart';
 
+Map<int, Color> accentColour =
+{
+  50:Color.fromRGBO(81, 229, 255, .1),
+  100:Color.fromRGBO(81, 229, 255, .2),
+  200:Color.fromRGBO(81, 229, 255, .3),
+  300:Color.fromRGBO(81, 229, 255, .4),
+  400:Color.fromRGBO(81, 229, 255, .5),
+  500:Color.fromRGBO(81, 229, 255, .6),
+  600:Color.fromRGBO(81, 229, 255, .7),
+  700:Color.fromRGBO(81, 229, 255, .8),
+  800:Color.fromRGBO(81, 229, 255, .9),
+  900:Color.fromRGBO(81, 229, 255, 1),
+};
+MaterialColor accentColorCustom = MaterialColor(0xff51e5ff, accentColour);
 
 void main() => runApp(GobbleApp());
 
@@ -15,8 +29,8 @@ class GobbleApp extends StatelessWidget {
       title: 'Gobble Gobble',
       theme: ThemeData(
         primarySwatch: Colors.green,
-        accentColor: Colors.white,
-        backgroundColor: Colors.black
+        accentColor: accentColorCustom,
+        backgroundColor: Colors.blue
       ),
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,

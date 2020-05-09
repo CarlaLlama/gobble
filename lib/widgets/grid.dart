@@ -121,7 +121,7 @@ class _GridWidgetState extends State<GridWidget> {
                       child: Container(
                         padding: EdgeInsets.all(16),
                         decoration: new BoxDecoration(
-                          color: selectedIndexes.contains(index) ? Colors.red : Colors.white,
+                          color: selectedIndexes.contains(index) ? Theme.of(context).accentColor : Colors.white,
                           border: Border.all(color: Colors.black),
                           borderRadius: new BorderRadius.all(new Radius.circular(10.0)),
                         ),
@@ -179,7 +179,7 @@ class _GridWidgetState extends State<GridWidget> {
                             )
                           )
                         ),
-                        if (correct) new Container(
+                        if (correct) new Container( // NOT WORKING
                           height: 100,
                           width: 100,
                           child: FlareActor("assets/animations/woo.flr",

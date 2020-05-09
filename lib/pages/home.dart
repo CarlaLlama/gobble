@@ -60,9 +60,9 @@ class _HomePageState extends State<HomePage> {
               fit: StackFit.expand,
               children: [
                 new Container(
-                  child: new FlareActor("assets/animations/background.flr",
+                  child: new FlareActor("assets/animations/base.flr",
                     alignment: Alignment.center,
-                    animation: "Background Loop",
+                    animation: "Flow",
                     fit: BoxFit.fitWidth)),
                 new GridWidget(),
                 new Positioned.fill(

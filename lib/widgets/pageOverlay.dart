@@ -30,17 +30,17 @@ class _PageOverlayState extends State<PageOverlay> {
                 children: <Widget>[
                   new Text('Welcome ${widget._name}',
                     style: TextStyle(
-                        color: Colors.green,
+                        color: Theme.of(context).accentColor,
                         fontSize: 20
                     )),
                   new RaisedButton(
                       child: new Text("NEW GAME"),
-                      color: Colors.green,
+                      color: Theme.of(context).accentColor,
                       onPressed: _toggle
                       ),
                   new RaisedButton(
                     child: new Text("CHALLENGE"),
-                    color: Colors.green)
+                    color: Theme.of(context).accentColor)
                 ]
               )));
   }
