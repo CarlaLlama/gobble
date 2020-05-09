@@ -51,33 +51,6 @@ class Grid {
     return r;
   }
 
-  int scoreForPath(List<int> path) {
-    if (path == null || path.length == 0) {
-      return 0;
-    }
-    List<int> scores = new List<int>(path.length);
-    int score = 0;
-    for (int i = 0; i < scores.length; i++) {
-      score += scores[i];
-    }
-    // Length bonus.
-    if (path.length <= 3) {
-      score += 0;
-    } else if (path.length <= 4) {
-      score += 1;
-    } else if (path.length <= 5) {
-      score += 2;
-    } else if (path.length <= 6) {
-      score += 3;
-    } else if (path.length <= 7) {
-      score += 5;
-    } else {
-      // 8 or more!
-      score += 11;
-    }
-    return score;
-  }
-
   String getChar(int i, int j) {
     int index = i * 4 + j;
     return tiles[index];

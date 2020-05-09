@@ -1,4 +1,5 @@
 
+import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -21,7 +22,9 @@ class _GridWidgetState extends State<GridWidget> {
   Dice _dice;
   List<String> _letters;
   List<String> _words = new List<String>();
+  List<String> _scores = new List<String>();
   Checker _checker;
+  bool correct = false;
 
   callback(letter) {
     setState(() {
@@ -151,16 +154,53 @@ class _GridWidgetState extends State<GridWidget> {
               child: (
                 new ListView(
                   shrinkWrap: true,
+                  padding: EdgeInsets.only(left: 16, right: 16),
                   children: <Widget>[
-                    for (var word in _words.reversed.toList()) Center(
-                      child: Text(
-                        word,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold
+                    for (var word in _words.reversed.toList()) Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween, 
+                      children: <Widget>[
+                        Align(
+                          alignment: Alignment.bottomLeft,
+                          child: Text(
+                            word,
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold
+                            )
+                          )
+                        ),
+                        Align(
+                          alignment: Alignment.bottomRight,
+                          child: Text(
+                            _scores[_words.indexOf(word)],
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold
+                            )
+                          )
+                        ),
+                        if (correct) new Container(
+                          height: 100,
+                          width: 100,
+                          child: FlareActor("assets/animations/woo.flr",
+                            alignment: Alignment.bottomCenter,
+                            animation: "estrellas",
+                            fit: BoxFit.fitWidth
+                          )
                         )
-                      )
+                      ]
                     )
+                      
+                    // for (var score in _scores.reversed.toList()) Align(
+                    //   alignment: Alignment.bottomLeft,
+                    //   child: Text(
+                    //     score,
+                    //     style: TextStyle(
+                    //       fontSize: 16,
+                    //       fontWeight: FontWeight.bold
+                    //     )
+                    //   )
+                    // )
                   ]
                 )
               )
@@ -179,14 +219,44 @@ class _GridWidgetState extends State<GridWidget> {
 
   void _checkWord(PointerUpEvent event) {
     _trackTaped.clear();
-    print("IS CURRENT WORD: "+ _currentWord());
-    if(_checker.isWord(_currentWord())){
-      _words.add(_currentWord());
+    var currentWord = _currentWord();
+    print("IS CURRENT WORD: "+ currentWord);
+    if(_checker.isWord(currentWord) && !_words.contains(currentWord)){
+      _words.add(currentWord);
+      _scores.add(scoreForWord(currentWord));
+      correct = true;
     }
     setState(() {
       selectedIndexes.clear();
+      correct = false;
+
     });
   }
+
+
+  String scoreForWord(String word) {
+    if (word == null || word.length == 0) {
+      return null;
+    }
+    int score = 0;
+    // Length bonus.
+    if (word.length <= 3) {
+      score += 1;
+    } else if (word.length <= 4) {
+      score += 1;
+    } else if (word.length <= 5) {
+      score += 2;
+    } else if (word.length <= 6) {
+      score += 3;
+    } else if (word.length <= 7) {
+      score += 5;
+    } else {
+      // 8 or more!
+      score += 11;
+    }
+    return score.toString();
+  }
+
 
 }
 
