@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ResultsOverlayWidget extends StatelessWidget {
-  bool _showResults = true;
+  bool _showResults;
   int _totalScore;
   List<String> _words = new List<String>();
   List<String> _allWords = new List<String>();
@@ -39,7 +39,7 @@ class ResultsOverlayWidget extends StatelessWidget {
                       fontSize: 20
                       )
                   ),
-                  new Text('You found ${this._words.length} of a possible ${this._allWords.length} words',
+                  new Text('You found ${null != _words? _words.length: 0} of a possible ${null != _allWords? _allWords.length : 0} words',
                       style: TextStyle(
                       color: Theme.of(context).accentColor,
                       fontSize: 14
@@ -59,7 +59,8 @@ class ResultsOverlayWidget extends StatelessWidget {
                             shrinkWrap: true,
                             padding: EdgeInsets.only(left: 16, top: 16, right: 16),
                             children: <Widget>[
-                              for (var word in _allWords) Row(
+                              if(null != _allWords)
+                                for (var word in _allWords) Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Align(
