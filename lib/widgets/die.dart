@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DieWidget extends StatefulWidget {
-  String _letter;
-  Function(String) callback;
+  final String _letter;
+  final Function(String) callback;
 
   DieWidget(this._letter, this.callback);
 

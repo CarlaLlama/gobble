@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:gobble/models/board.dart';
 import 'package:gobble/widgets/grid.dart';
 import 'package:gobble/widgets/pageOverlay.dart';
+import 'package:gobble/widgets/resultsOverlay.dart';
 import 'package:gobble/widgets/timer.dart';
 
 void main() async {
@@ -68,7 +69,7 @@ class _HomePageState extends State<HomePage> {
                 new Positioned.fill(
                     child: PageOverlay(widget.user.displayName ?? widget.user.email)
                 )
-              ])
+          ])
       );
 
   void _logout() {

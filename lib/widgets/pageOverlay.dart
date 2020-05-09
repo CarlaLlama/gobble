@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PageOverlay extends StatefulWidget {
-  String _name;
+  final String _name;
 
   PageOverlay(this._name);
 
