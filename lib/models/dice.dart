@@ -2,9 +2,14 @@ import 'dart:core';
 import 'dart:math';
 
 class Dice {
-  final List<List<String>> _grid = shuffleDie();
+  List<List<String>> _grid = shuffleDie();
 
   List<List<String>> getGrid(){
+    return this._grid;
+  }
+
+  List<List<String>> reshuffleGrid() {
+    this._grid = shuffleDie();
     return this._grid;
   }
 

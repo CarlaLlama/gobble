@@ -1,18 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class ResultsOverlayWidget extends StatelessWidget {
-  bool _showResults;
+class ResultsOverlay extends StatefulWidget {
+  bool _showResults = false;
   int _totalScore;
   List<String> _words = new List<String>();
   List<String> _allWords = new List<String>();
+  VoidCallback _callback;
 
-  ResultsOverlayWidget(this._showResults, this._totalScore, this._words, this._allWords);
+  ResultsOverlay(this._showResults, this._totalScore, this._words, this._allWords, this._callback);
+
+  @override
+  State<StatefulWidget> createState() => ResultsOverlayWidget();
+}
+
+class ResultsOverlayWidget extends State<ResultsOverlay> {
 
   @override
   Widget build(BuildContext context) {
     return new Visibility(
-        visible: _showResults,
+        visible: widget._showResults,
         child: Container(
             margin: const EdgeInsets.all(30.0),
             decoration: new BoxDecoration(
@@ -33,13 +40,13 @@ class ResultsOverlayWidget extends StatelessWidget {
                         fontWeight: FontWeight.bold
                         )),
                   ),
-                  new Text('Your score: ${this._totalScore}',
+                  new Text('Your score: ${widget._totalScore}',
                       style: TextStyle(
                       color: Theme.of(context).accentColor,
                       fontSize: 20
                       )
                   ),
-                  new Text('You found ${null != _words? _words.length: 0} of a possible ${null != _allWords? _allWords.length : 0} words',
+                  new Text('You found ${null != widget._words? widget._words.length: 0} of a possible ${null != widget._allWords? widget._allWords.length : 0} words',
                       style: TextStyle(
                       color: Theme.of(context).accentColor,
                       fontSize: 14
@@ -59,8 +66,8 @@ class ResultsOverlayWidget extends StatelessWidget {
                             shrinkWrap: true,
                             padding: EdgeInsets.only(left: 16, top: 16, right: 16),
                             children: <Widget>[
-                              if(null != _allWords)
-                                for (var word in _allWords) Row(
+                              if(null != widget._allWords)
+                                for (var word in widget._allWords) Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Align(
@@ -70,7 +77,7 @@ class ResultsOverlayWidget extends StatelessWidget {
                                             style: TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.bold,
-                                                color: _words.contains(word) ?  Colors.green : Colors.white
+                                                color: widget._words.contains(word) ?  Colors.green : Colors.white
                                             )
                                         )
                                     ),
@@ -81,7 +88,7 @@ class ResultsOverlayWidget extends StatelessWidget {
                                             style: TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.bold,
-                                                color: _words.contains(word) ?  Colors.green : Colors.white
+                                                color: widget._words.contains(word) ?  Colors.green : Colors.white
                                             )
                                         )
                                     ),
@@ -93,17 +100,20 @@ class ResultsOverlayWidget extends StatelessWidget {
                   child: Row(
                     children: <Widget>[
                       Expanded(
-                        child: new RaisedButton(
-                          child: new Text("NEW GAME"),
-                          color: Theme.of(context).accentColor,
-                          onPressed: _newGame,
+                        child: new Container(
+                          margin: EdgeInsets.all(8),
+                          child: new RaisedButton(
+                            child: new Text("CHALLENGE"),
+                            color: Theme.of(context).accentColor,
+                            onPressed: _startChallenge
+                          )
                         )
                       ),
                       Expanded(
                         child: new RaisedButton(
-                          child: new Text("CHALLENGE"),
+                          child: new Text("NEW GAME"),
                           color: Theme.of(context).accentColor,
-                          onPressed: _startChallenge
+                            onPressed: widget._callback
                         )
                       )
                     ]
@@ -137,10 +147,6 @@ class ResultsOverlayWidget extends StatelessWidget {
 
   void _startChallenge() {
     print("START CHALLENGE");
-  }
-
-  void _newGame() {
-    print("START NEW GAME");
   }
 
   void closeOverlay(){

@@ -42,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
                height: 400,
                width: 400,
                child: new Icon(Icons.person_pin,
-                color: Colors.green,
+               color: Theme.of(context).accentColor,
                 size: 100,
                ),
           ),

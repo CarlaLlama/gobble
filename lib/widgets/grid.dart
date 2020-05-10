@@ -28,13 +28,29 @@ class _GridWidgetState extends State<GridWidget> {
   int _runningScore;
   Checker _checker;
   bool correct = false;
-  bool _showResults;
+  bool _showResults = false;
+  
+  
+//
+//  callback(letter) {
+//    setState(() {
+//      currentWord += letter;
+//    });
+//    print(currentWord);
+//  }
 
-  callback(letter) {
+
+  _resetGrid() {
+    print("Restarting");
     setState(() {
-      currentWord += letter;
+      List<List<String>> grid = _dice.reshuffleGrid();
+      _letters = _dice.getShuffledGridList();
+      _runningScore = 0;
+      _showResults = false;
+      _words = new List<String>();
+      _scores = new List<String>();
+      _checker = new Checker(grid);
     });
-    print(currentWord);
   }
 
   @override
@@ -219,14 +235,14 @@ class _GridWidgetState extends State<GridWidget> {
               ),
                new Align(
                   alignment: Alignment.bottomCenter,
-                  child: new Row(
+                   child: new Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Expanded(
                         child:
                           new Container(
-                              padding: EdgeInsets.only(left: 16, right: 16),
+                              padding: EdgeInsets.all(8),
                               child: Row(
                                 children: <Widget>[
                                   new RaisedButton(
@@ -257,16 +273,9 @@ class _GridWidgetState extends State<GridWidget> {
                   ))
               ]),
               new Positioned.fill(
-                  child: ResultsOverlayWidget(_showResults,_runningScore,_words,_allWords),
+                  child: new ResultsOverlay(_showResults,_runningScore,_words,_allWords, () => _resetGrid()),
               )
         ]);
-  }
-
-  void _submitWord() {
-    setState(() {
-      _words.add(_letters.join());
-      _letters.clear();
-    });
   }
 
   void _startResults() {
